@@ -1,0 +1,137 @@
+{{#if user}}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Erp App</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link href="/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/css/datepicker3.css" rel="stylesheet">
+	<link href="/css/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+</head>
+<body>
+	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse"><span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span></button>
+				<a class="navbar-brand" href="/"><span>Erp</span>App</a>
+	
+			</div>
+		</div><!-- /.container-fluid -->
+	</nav>
+
+    	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<div class="profile-sidebar">
+			<div class="profile-userpic">
+				<img src={{{user.picture}}} class="img-responsive" alt="">
+			</div>
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name">{{{user.username}}}</div>
+				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="divider"></div>
+		<ul class="nav menu">
+			<li><a href="/"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
+			<li><a href="/"><em class="fa fa-calendar">&nbsp;</em> Widgets</a></li>
+			<li><a href="/"><em class="fa fa-bar-chart">&nbsp;</em> Charts</a></li>
+			<li><a href="/"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
+			<li><a href="/settings/user"><em class="fa fa-clone">&nbsp;</em>Settings</a></li>
+			<li><a href="/users/logout"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+		</ul>
+	</div><!--/.sidebar-->
+        {{{ body }}}
+    
+    <script src="/js/jquery-1.11.1.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/chart.min.js"></script>
+	<script src="/js/chart-data.js"></script>
+	<script src="/js/easypiechart.js"></script>
+	<script src="/js/easypiechart-data.js"></script>
+	<script src="/js/bootstrap-datepicker.js"></script>
+	<script src="/js/custom.js"></script>
+	<script>
+		window.onload = function () {
+	var chart1 = document.getElementById("line-chart").getContext("2d");
+	window.myLine = new Chart(chart1).Line(lineChartData, {
+	responsive: true,
+	scaleLineColor: "rgba(0,0,0,.2)",
+	scaleGridLineColor: "rgba(0,0,0,.05)",
+	scaleFontColor: "#c5c7cc"
+	});
+};
+	</script>
+</body>
+</html>
+
+
+
+{{else}}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Erp App</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/datepicker3.css" rel="stylesheet">
+	<link href="/css/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+</head>
+<body>
+    	<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+    <nav>
+          <ul class="nav nav-pills float-right">
+             <li class="nav-item" style="width:45%">
+              <a class="nav-link" href="/users/login">Login</a>
+            </li>
+            <li class="nav-item" style="width:45%">
+              <a class="nav-link" href="/users/register">Register</a>
+            </li>
+          </ul>
+        </nav>
+        </div>
+	<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+		<div class="login-panel panel panel-default">
+            <div class="panel-heading">Erp App</div>
+
+
+
+            <div class="panel-body">
+                <div class="row">
+              {{#if success_msg}}
+                <div class="alert alert-success">{{success_msg}}</div>
+              {{/if}}
+
+              {{#if error_msg}}
+                <div class="alert alert-danger">{{error_msg}}</div>
+              {{/if}}
+
+              {{#if error}}
+                <div class="alert alert-danger">{{error}}</div>
+              {{/if}}
+        </div>
+            {{{body}}}
+            </div>
+          </div>
+
+        </div>
+
+	<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+      <footer class="footer">
+        <p>&copy; Erp App 2017</p>
+      </footer>
+    </div>
+</body>
+</html>
+{{/if}}

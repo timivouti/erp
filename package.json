@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend server",
+  "main": "entry.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Timi Voutilainen",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^2.0.0",
+    "cookie-parser": "*",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "mongoose": "^4.13.7",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "session": "^0.1.0"
+  }
+}
