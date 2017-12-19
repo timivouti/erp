@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "backend server",
   "main": "entry.js",
+  "engines": {
+    "node": "8.9.3"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node entry.js"
   },
   "author": "Timi Voutilainen",
   "license": "ISC",
