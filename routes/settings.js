@@ -17,32 +17,54 @@ function ensureAuthenticated(req, res, next) {
     }
 }
 
-router.put('/user/:id', (req, res, next)=>{
+router.put('/user/update', (req, res, next)=>{
+
     var name = req.body.name;
     var email = req.body.email;
+    var username = req.body.username;
     var picture = req.body.picture;
 
     req.checkBody('name', 'Name is required').notEmpty();
     req.checkBody('email', 'Email is required').notEmpty();
     req.checkBody('email', 'Email is not valid').isEmail();
 
-    Item.findOneAndUpdate({_id: req.params.id}, {
+    var errors = req.validationErrors();
+
+    if(errors) {
+        res.render('settings', {
+            errors:errors
+        });
+    }
+    else {
+
+    User.findOneAndUpdate({username: req.body.username}, {
         $set:{
-            name: name,
-            email: email,
-            picture: picture
+            name: req.body.name,
+            email: req.body.email,
+            picture: req.body.picture
         }
     },
     function(err, result) {
         if(err){
-            res.render('settings', {
-            errors:errors
-            });
+            throw err;
         }
         else{
-            res.json(result);
+            req.flash('success_msg', 'Your user settings were changed');
+            res.redirect('/settings/user');
         }
     })
+    }
+});
+
+router.get('/users', (req, res, next)=>{
+    User.find(function(err, items){
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json(items);
+        }
+    });
 });
 
 module.exports = router;

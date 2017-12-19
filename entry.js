@@ -10,6 +10,8 @@ var LocalStrategy = require('passport-local');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+
 
 mongoose.connect('mongodb://userfordb:ZwLsjAkNBy74wBPV@login-shard-00-00-rdmk1.mongodb.net:27017,login-shard-00-01-rdmk1.mongodb.net:27017,login-shard-00-02-rdmk1.mongodb.net:27017/test?ssl=true&replicaSet=login-shard-0&authSource=admin', {
         useMongoClient: true
@@ -30,6 +32,10 @@ app.set('view engine', 'handlebars');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
+app.use(methodOverride('_method'));
+
+
+app.use(methodOverride('X-HTTP-Method-Override'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
