@@ -29,6 +29,7 @@
     "method-override": "^2.3.10",
     "mongodb": "*",
     "mongoose": "^4.13.7",
+    "node-pre-gyp": "^0.6.39",
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
