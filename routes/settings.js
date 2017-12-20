@@ -36,7 +36,7 @@ router.put('/user/update/:username', (req, res, next)=>{
     }
     else {
 
-    User.findOneAndUpdate({username: req.body.username}, {
+    User.findOneAndUpdate({username: req.params.username}, {
         $set:{
             name: req.body.name,
             email: req.body.email,
