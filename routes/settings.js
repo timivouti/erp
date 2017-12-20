@@ -17,11 +17,10 @@ function ensureAuthenticated(req, res, next) {
     }
 }
 
-router.put('/user/update', (req, res, next)=>{
-
+router.put('/user/update/:username', (req, res, next)=>{
     var name = req.body.name;
     var email = req.body.email;
-    var username = req.body.username;
+    var username = req.params.username;
     var picture = req.body.picture;
 
     req.checkBody('name', 'Name is required').notEmpty();

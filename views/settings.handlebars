@@ -34,8 +34,7 @@
                         <div class="alert alert-danger">{{msg}}</div>
                     {{/each}}
                 {{/if}}
-                <form method="post" action="/settings/user/update?_method=PUT">
-                    <input type="hidden" name="username" value="{{{user.username}}}">
+                <form method="post" action="/settings/user/update/{{{user.username}}}?_method=PUT">
                 <div class="form-group">
                      <label>Name</label>
                       <input type="text" class="form-control" value="{{{user.name}}}" name="name">
