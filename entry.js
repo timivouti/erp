@@ -11,6 +11,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var mysql = require('mysql2');
 
 
 mongoose.connect('mongodb://userfordb:ZwLsjAkNBy74wBPV@login-shard-00-00-rdmk1.mongodb.net:27017,login-shard-00-01-rdmk1.mongodb.net:27017,login-shard-00-02-rdmk1.mongodb.net:27017/test?ssl=true&replicaSet=login-shard-0&authSource=admin', {
@@ -19,9 +20,11 @@ mongoose.connect('mongodb://userfordb:ZwLsjAkNBy74wBPV@login-shard-00-00-rdmk1.m
 
 var db = mongoose.connection;
 
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var settings = require('./routes/settings');
+var sales = require('./routes/sales');
 
 var app = express();
 
@@ -78,6 +81,7 @@ app.use(function (req, res, next) {
 app.use('/', routes);
 app.use('/settings', settings);
 app.use('/users', users);
+app.use('/sales', sales);
 
 app.set('port', (process.env.PORT || 3000));
 

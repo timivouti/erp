@@ -1,0 +1,78 @@
+	    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Are you sure you want to remove this?</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete one sale, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="/sales/">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Sales</li>
+			</ol>
+		</div><!--/.row-->
+
+				<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Sales</h1>
+			</div>
+		</div><!--/.row-->
+
+<div class="panel panel-container">
+	 <div class="panel-body">
+		<a href="/sales/add"><button type="button" class="btn btn-success page-header" style="float:right">Add New</button></a>
+		<h2 class="page-header">Sales</h2>
+		<div class="table-responsive">
+		<table class="table table-striped" style="overflow-x:auto">
+		<thead>
+  			<tr>
+     			<th>Order number</th>
+     			<th>Order date</th>
+				<th>Customer name</th>
+				<th>Product code</th>
+				<th>Order amount</th>
+				<th>Order Price Without VAT</th>
+				<th>Order VAT price</th>
+				<th>Order Total Price</th>
+				<th>Edit</th>
+				<th>Delete</th>
+  			</tr>
+ 		</thead>
+		 <tbody>
+			{{#each result}}
+			<tr>
+				<th>{{order_number}}</th>
+				<th>{{order_date}}</th>
+				<th>{{customer_name}}</th>
+				<th>{{product_code}}</th>
+				<th>{{order_amount}}</th>
+				<th>{{order_pricewovat}}</th>
+				<th>{{order_vatprice}}</th>
+				<th>{{order_totalprice}}</th>
+				<th><a href="/sales/edit/{{order_number}}"><button type="button" class="btn btn-primary">Edit</button></a></th>
+				<th><a data-href="/sales/remove/{{order_number}}" data-toggle="modal" data-target="#confirm-delete"><button type="button" class="btn btn-danger">Delete</button></a></th>
+			</tr>
+			{{/each}}
+		 </tbody>
+		</table>
+		</div>
+	 </div>
+</div>

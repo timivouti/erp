@@ -1,0 +1,56 @@
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="/sales/add">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Sales</li>
+			</ol>
+		</div><!--/.row-->
+
+				<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Sales</h1>
+			</div>
+		</div><!--/.row-->
+
+<div class="panel panel-container">
+	<div class="panel-body table-responsive">	
+    <a href="/sales"><button type="button" class="btn btn-primary page-header" style="float:right">Back To Sales</button></a>
+    <h2 class="page-header">New Sale</h2>
+        {{#if errors}}
+            {{#each errors}}
+                <div class="alert alert-danger">{{msg}}</div>
+            {{/each}}
+        {{/if}}
+    <form method="post" action="/sales/add/new">
+    <div class="form-group">
+        <label>Customer name</label>
+        <input type="text" class="form-control" placeholder="Customer Name" name="customer_name">
+    </div>
+    <div class="form-group">
+        <label>Order Date</label>
+        <input type="date" class="form-control" placeholder="Order Date" name="order_date">
+    </div>
+    <div class="form-group">
+        <label>Product Code</label>
+        <input type="text" class="form-control" placeholder="Product Code" name="product_code">
+    </div>
+    <div class="form-group">
+        <label>Order amount</label>
+        <input type="text" class="form-control" placeholder="Order amount" name="order_amount">
+    </div>
+    <div class="form-group">
+        <label>Order Price Without VAT</label>
+        <input type="text" class="form-control" placeholder="Order Price Without VAT" name="order_pricewovat">
+    </div>
+	<div class="form-group">
+        <label>Order Price VAT</label>
+        <input type="text" class="form-control" placeholder="Order Price VAT" name="order_pricevat">
+    </div>
+	<div class="form-group">
+        <label>Order Total Price</label>
+        <input type="text" class="form-control" placeholder="Order Price Without VAT" name="order_totalprice">
+    </div>
+    <button type="submit" class="btn btn-success">Add</button>
+</form>

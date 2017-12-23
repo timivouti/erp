@@ -21,6 +21,8 @@
     "connect-mongo": "^2.0.0",
     "cookie-parser": "*",
     "cors": "^2.8.4",
+    "edge": "github:tjanczuk/edge",
+    "edge-sql": "^0.1.2",
     "express": "^4.16.2",
     "express-handlebars": "*",
     "express-messages": "*",
@@ -29,10 +31,16 @@
     "method-override": "^2.3.10",
     "mongodb": "*",
     "mongoose": "^4.13.7",
+    "msnodesqlv8": "^0.4.7",
+    "mssql": "^4.1.0",
+    "mysql": "^2.15.0",
+    "mysql2": "^1.5.1",
     "node-pre-gyp": "^0.6.39",
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
-    "session": "^0.1.0"
+    "pg": "^7.4.0",
+    "session": "^0.1.0",
+    "tedious": "^2.1.5"
   }
 }

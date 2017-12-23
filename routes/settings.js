@@ -12,12 +12,12 @@ function ensureAuthenticated(req, res, next) {
         return next();
     }
     else {
-        //req.flash('error_msg', 'You are not logged in');
+        req.flash('error_msg', 'You are not logged in');
         res.redirect('/users/login');
     }
 }
 
-router.put('/user/update/:username', (req, res, next)=>{
+router.put('/user/update/:username', ensureAuthenticated, (req, res, next)=>{
     var name = req.body.name;
     var email = req.body.email;
     var username = req.params.username;
