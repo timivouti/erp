@@ -142,11 +142,12 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
         }
 
         if(errors) {
-        connection.query("SELECT * FROM sales WHERE order_number = " + orderNumber);
+        getSalesEdit(function (err, salesResult, orderNumber){
         res.render('editsales', {
-            errors:errors
+            errors:errors, 'result': salesResult
             });
         return;
+        });
         }
 
         var SET = "SET order_date='" + order_date + "', customer_name='" + customer_name + "', product_code=" + product_code + ", order_amount=" + order_amount
@@ -158,9 +159,7 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
         req.flash('success_msg', 'You have edited the sale');
 
 
-
-        getSalesEdit(function (err, salesResult, orderNumber){ 
-            //you might want to do something is err is not null...      
+        getSalesEdit(function (err, salesResult, orderNumber){       
             res.render('editsales', { 'title': 'SQL test',
                              'result': salesResult});
          });
