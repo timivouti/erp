@@ -142,7 +142,7 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
         }
 
         if(errors) {
-        res.render('addsales', {
+        res.render('editsales', {
             errors:errors
             
             });
