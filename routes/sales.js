@@ -142,12 +142,10 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
         }
 
         if(errors) {
-        getSalesEdit(function (err, salesResult, orderNumber){
         res.render('editsales', {
-            errors:errors, 'result': salesResult
+            errors:errors
             });
         return;
-        });
         }
 
         var SET = "SET order_date='" + order_date + "', customer_name='" + customer_name + "', product_code=" + product_code + ", order_amount=" + order_amount
