@@ -142,11 +142,11 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
         }
 
         if(errors) {
-        res.render('editsales', {
-            errors:errors
-            
-            });
-        return;
+            getSalesEdit(function (err, salesResult, orderNumber){ 
+                //you might want to do something is err is not null...      
+                res.render('editsales', { 'title': 'SQL test',
+                                 'result': salesResult});
+             });
         }
 
         var SET = "SET order_date='" + order_date + "', customer_name='" + customer_name + "', product_code=" + product_code + ", order_amount=" + order_amount
