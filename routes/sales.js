@@ -142,9 +142,9 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
         }
 
         if(errors) {
+        connection.query("SELECT * FROM sales WHERE order_number = " + orderNumber);
         res.render('editsales', {
             errors:errors
-            
             });
         return;
         }
