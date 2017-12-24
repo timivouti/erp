@@ -161,7 +161,7 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
 
         getSalesEdit(function (err, salesResult, orderNumber){ 
             //you might want to do something is err is not null...      
-            res.render('editsales', { 'title': 'SQL test',
+            res.render('sales', { 'title': 'SQL test',
                              'result': salesResult});
          });
     });
