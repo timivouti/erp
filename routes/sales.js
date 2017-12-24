@@ -161,7 +161,7 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
 
         getSalesEdit(function (err, salesResult, orderNumber){       
             res.render('editsales', { 'title': 'SQL test',
-                             'result': salesResult});
+                             'result': salesResult, success_msg: success_msg});
          });
     });
 
