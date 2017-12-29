@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var entry = require('../entry');
 const mysql = require('mysql2');
 
 router.get('/', ensureAuthenticated, function(req, res, next) {
     getSales(function (err, salesResult){ 
         //you might want to do something is err is not null...      
-        res.render('sales', { 'title': 'SQL test',
-                         'result': salesResult});
+        res.render('sales', {'result': salesResult});
      });
 });
 
@@ -22,20 +22,10 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
-const connection = mysql.createConnection({
-    host: 'erp-app.mysql.database.azure.com',
-    user: 'timmyd@erp-app',
-    password: 'Voutilainen1',
-    database: 'erp',
-    port: 3306,
-    ssl: true,
-    dateStrings: 'date'
-  });
 
-connection.connect(); 
 
 function getSales(callback) {
-    connection.query("SELECT * FROM sales",
+    entry.connection.query("SELECT * FROM sales",
         function (err, rows) {
             callback(err, rows); 
         }
@@ -78,7 +68,7 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
     var values = "'" + order_date + "', '" + customer_name + "', " + product_code + ", " + order_amount + ", " + order_pricewovat + ", " + order_pricevat + ", " + order_totalprice;
 
     var sql = "INSERT INTO sales (order_date, customer_name, product_code, order_amount, order_pricewovat, order_vatprice, order_totalprice) VALUES (" + values + ")";
-    connection.query(sql, function (err, result) {
+    entry.connection.query(sql, function (err, result) {
       if (err) throw err;
     });
 
@@ -88,7 +78,7 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
     router.get('/remove/:order_number', ensureAuthenticated, function(req,res) {
         var orderNumber = req.params.order_number;
         var sql = "DELETE FROM sales WHERE order_number = " + orderNumber;
-        connection.query(sql, function (err, result) {
+        entry.connection.query(sql, function (err, result) {
             if (err) throw err;
         });
         
@@ -100,16 +90,14 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
         
 
         function getSalesEdit(callback) {
-            connection.query("SELECT * FROM sales WHERE order_number = " + orderNumber,
+            entry.connection.query("SELECT * FROM sales WHERE order_number = " + orderNumber,
                 function (err, rows) {
                     callback(err, rows); 
                 }
             );    
         }
-        getSalesEdit(function (err, salesResult, orderNumber){ 
-            //you might want to do something is err is not null...      
-            res.render('editsales', { 'title': 'SQL test',
-                             'result': salesResult});
+        getSalesEdit(function (err, salesResult, orderNumber){      
+            res.render('editsales', {'result': salesResult});
          });
     });
 
@@ -134,7 +122,7 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
         var errors = req.validationErrors();
 
         function getSalesEdit(callback) {
-            connection.query("SELECT * FROM sales WHERE order_number = " + orderNumber,
+            entry.connection.query("SELECT * FROM sales WHERE order_number = " + orderNumber,
                 function (err, rows) {
                     callback(err, rows); 
                 }
@@ -142,9 +130,9 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
         }
 
         if(errors) {
-        res.render('editsales', {
-            errors:errors
-            });
+            getSalesEdit(function (err, salesResult, orderNumber){     
+                res.render('editsales', {'result': salesResult, errors:errors});
+             });
         return;
         }
 
@@ -152,27 +140,16 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
         + ", order_pricewovat=" + order_pricewovat +  ", order_vatprice=" + order_pricevat + ", order_totalprice=" + order_totalprice;
 
 
-        connection.query("UPDATE sales " + SET + " WHERE order_number=" + orderNumber);
+        entry.connection.query("UPDATE sales " + SET + " WHERE order_number=" + orderNumber);
 
         req.flash('success_msg', 'You have edited the sale');
 
-
-        getSalesEdit(function (err, salesResult, orderNumber){       
-            res.render('editsales', { 'title': 'SQL test',
-                             'result': salesResult});
+        getSalesEdit(function (err, salesResult, orderNumber){     
+            res.render('editsales', {'result': salesResult, success_msg:req.flash('success_msg')});
          });
     });
 
-    function ping() {
-        connection.query("SELECT * FROM test", function(err, result) {
-            if (err) throw err;
-        });
-    }
-    try {
-    setInterval(ping, 200000);
-    } catch (err) {
-        console.log(err);
-    }
+
 
 
 module.exports = router;

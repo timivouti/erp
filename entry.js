@@ -11,7 +11,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
-var mysql = require('mysql2');
+const mysql = require('mysql2');
 
 
 mongoose.connect('mongodb://userfordb:ZwLsjAkNBy74wBPV@login-shard-00-00-rdmk1.mongodb.net:27017,login-shard-00-01-rdmk1.mongodb.net:27017,login-shard-00-02-rdmk1.mongodb.net:27017/test?ssl=true&replicaSet=login-shard-0&authSource=admin', {
@@ -19,6 +19,29 @@ mongoose.connect('mongodb://userfordb:ZwLsjAkNBy74wBPV@login-shard-00-00-rdmk1.m
 });
 
 var db = mongoose.connection;
+
+const connection = mysql.createConnection({
+    host: 'erp-app.mysql.database.azure.com',
+    user: 'timmyd@erp-app',
+    password: 'Voutilainen1',
+    database: 'erp',
+    port: 3306,
+    ssl: true,
+    dateStrings: 'date'
+  });
+
+connection.connect(); 
+
+function ping() {
+    connection.query("SELECT * FROM test", function(err, result) {
+        if (err) throw err;
+    });
+}
+try {
+setInterval(ping, 200000);
+} catch (err) {
+    console.log(err);
+}
 
 
 var routes = require('./routes/index');
@@ -88,3 +111,5 @@ app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function() {
     console.log('Server started on port ' + app.get('port'));
 });
+
+module.exports.connection = connection;

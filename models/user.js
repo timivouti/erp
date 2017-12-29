@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
+
 var UserSchema = mongoose.Schema({
     username: {
         type: String,
@@ -18,6 +19,13 @@ var UserSchema = mongoose.Schema({
     picture: {
         type: String,
         default: 'http://placehold.it/50/30a5ff/fff'
+    },
+    company: {
+        type: String
+    },
+    companyActive: {
+        type: Boolean,
+        default: false
     }
 });
 

@@ -1,0 +1,108 @@
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Are you sure you want to leave from your company?</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to leave from your company, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                </div>
+                
+                <div class="modal-footer">
+                    <form method="post" action="/settings/company/remove/{{{user.username}}}">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Leave</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="/settings/user">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Company Settings</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Company Settings</h1>
+			</div>
+		</div><!--/.row-->
+
+        <div class="panel panel-container">
+		<div class="login-panel panel panel-default">
+            <div class="panel-body">
+                {{#if user.companyActive}}
+                {{#if success_msg}}
+                    <div class="alert alert-success">{{success_msg}}</div>
+                {{/if}}
+                <h2 class="page-header">Give this ID to someone to join your company</h2>
+                <input type="text" class="form-control" value="{{{user.company}}}" readonly>
+                <h2 class="page-header">Leave from your company</h2>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete">Leave</button>
+
+                {{else}}
+                <h2 class="page-header">Join to a company with ID</h2>
+                {{#if success_msg}}
+                    <div class="alert alert-success">{{success_msg}}</div>
+                {{/if}}
+                <form method="post" action="/settings/company/join/{{{user.username}}}" role="form">
+                <div class="form-group">
+                    <label>Company ID</label>
+                    <input type="text" class="form-control" name="companyid" placeholder="Company ID">
+                </div>
+                <button type="submit" class="btn btn-primary">Join Company</button>
+                </form>
+
+                <h2 class="page-header">Create new company</h2>
+                {{#if errors}}
+                    {{#each errors}}
+                       <div class="alert alert-danger">{{msg}}</div>
+                    {{/each}}
+                {{/if}}
+                <form method="post" action="/settings/company/create/{{{user.username}}}" role="form">
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" class="form-control" name="companyname" placeholder="Company Name">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" class="form-control" name="address" placeholder="Address">
+                </div>
+                <div class="form-group">
+                    <label>Post Code</label>
+                    <input type="text" class="form-control" name="postcode" placeholder="Post Code">
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" class="form-control" name="city" placeholder="City">
+                </div>
+                <div class="form-group">
+                    <label>Country</label>
+                    <input type="text" class="form-control" name="country" placeholder="Country">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" class="form-control" name="phonenumber" placeholder="Phone number">
+                </div>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="email" class="form-control" name="email" placeholder="E-mail">
+                </div>
+                <button type="submit" class="btn btn-primary">Create Company</button>
+                </form>
+                {{/if}}
+
+            </div>
+        </div>
+        </div>
+    </div>
