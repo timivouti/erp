@@ -1,0 +1,79 @@
+		    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Are you sure you want to remove this?</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete one sale, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+
+    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="/products/{{{user.company}}}">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Products</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Products</h1>
+			</div>
+		</div><!--/.row-->
+
+        <div class="panel panel-container">
+		<div class="login-panel panel panel-default">
+            <div class="panel-body">
+            <a href="/products/add/new"><button type="button" class="btn btn-success page-header" style="float:right">Add New</button></a>
+            <h2 class="page-header">Products</h2>
+            {{#if success_msg}}
+                <div class="alert alert-success">{{success_msg}}</div>
+              {{/if}}
+            <div class="table-responsive">
+		<table class="table table-striped" style="overflow-x:auto">
+		<thead>
+  			<tr>
+     			<th>Product number</th>
+     			<th>Product Name</th>
+				<th>Unit Price</th>
+				<th>Production Cost</th>
+				<th>VAT</th>
+  			</tr>
+ 		</thead>
+		 <tbody>
+			{{#each result}}
+			<tr>
+				<th>{{product_number}}</th>
+                <th>{{product_name}}</th>
+                <th>{{unitprice}}</th>
+                <th>{{production_cost}}</th>
+                <th>{{vat}}</th>
+				<th><a href="/products/edit/{{product_number}}"><button type="button" class="btn btn-primary">Edit</button></a></th>
+				<th><a data-href="/products/remove/{{product_number}}/{{company_id}}" data-toggle="modal" data-target="#confirm-delete"><button type="button" class="btn btn-danger">Delete</button></a></th>
+			</tr>
+			{{/each}}
+		 </tbody>
+		</table>
+		</div>
+
+            </div>
+        </div>
+        </div>
+    </div>
+            

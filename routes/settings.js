@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var entry = require('../entry');
 
 var User = require('../models/user');
 
@@ -72,7 +73,7 @@ router.get('/company', ensureAuthenticated, function(req, res) {
 
 router.post('/company/create/:username', ensureAuthenticated, function(req,res) {
     var company_name = req.body.companyname;
-    var address = req.body.adress;
+    var address = req.body.address;
     var postcode = req.body.postcode;
     var city = req.body.city;
     var country = req.body.country;
@@ -109,11 +110,16 @@ router.post('/company/create/:username', ensureAuthenticated, function(req,res) 
                 throw err;
             }
             else{
+                var values = "'" + companyId + "', '" + company_name + "', '" + address + "', '" + postcode + "', '" + city + "', '" + country + "', '" + phonenumber + "', '" + email + "'";
+                var sql = "INSERT INTO companies (company_id, company_name, company_address, company_postcode, company_city, company_country, company_phonenumber, company_email) VALUES (" + values + ")";
+                entry.connection.query(sql, function (err, result) {
+                    if (err) throw err;
+                });     
                 req.flash('success_msg', 'Your company was made');
-                res.redirect('/settings/company');
+                res.redirect('/settings/company'); 
             }
         });
-    }
+    } 
 });
 
 router.post('/company/remove/:username', ensureAuthenticated, function(req,res) {
@@ -134,28 +140,51 @@ router.post('/company/remove/:username', ensureAuthenticated, function(req,res) 
     });
 });
 
+
 router.post('/company/join/:username', ensureAuthenticated, function(req,res) {
     var companyid = req.body.companyid;
+    var checkIfFound = false;
 
     req.checkBody('companyid', 'Company ID is required').notEmpty();
 
     var errors = req.validationErrors();
 
-    User.findOneAndUpdate({username: req.params.username}, {
-        $set:{
-            companyActive: true,
-            company: companyid
-        }
-    },
-    function(err, result) {
-        if(err){
-            throw err;
-        }
-        else{
-            req.flash('success_msg', 'You joined a company');
+    var sql = "SELECT * FROM companies WHERE company_id='" + companyid + "'";
+
+    function changeUserDetails(checkIfFound) {
+        if (!checkIfFound) {
+            req.flash('error_msg', 'Your Company ID was not valid');
             res.redirect('/settings/company');
         }
+        else {
+        User.findOneAndUpdate({username: req.params.username}, {
+            $set:{
+                companyActive: true,
+                company: companyid
+            }
+        },
+        function(err, result) {
+            if(err){
+                throw err;
+            }
+            else{
+                req.flash('success_msg', 'You joined a company');
+                res.redirect('/settings/company');
+            }
+        });
+    }
+    }
+
+
+    entry.connection.query(sql, function (err, result) {
+        if (err) throw err;
+        if (result.length != 0) {
+            checkIfFound = true;
+        }
+            changeUserDetails(checkIfFound);
     });
+
+
 });
 
 

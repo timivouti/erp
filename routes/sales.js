@@ -24,12 +24,12 @@ function ensureAuthenticated(req, res, next) {
 
 
 
-function getSales(callback) {
+function getSales(callback) { 
     entry.connection.query("SELECT * FROM sales",
         function (err, rows) {
             callback(err, rows); 
         }
-    );    
+    );
 }
   
 

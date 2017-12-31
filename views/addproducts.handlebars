@@ -1,0 +1,44 @@
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="/products/add/new">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Products</li>
+			</ol>
+		</div><!--/.row-->
+
+				<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Products</h1>
+			</div>
+		</div><!--/.row-->
+
+<div class="panel panel-container">
+	<div class="panel-body table-responsive">	
+    <a href="/products/{{{user.company}}}"><button type="button" class="btn btn-primary page-header" style="float:right">Back To Products</button></a>
+    <h2 class="page-header">New Product</h2>
+        {{#if errors}}
+            {{#each errors}}
+                <div class="alert alert-danger">{{msg}}</div>
+            {{/each}}
+        {{/if}}
+    <form method="post" action="/products/add/{{{user.company}}}">
+    <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" class="form-control" placeholder="Product Name" name="product_name">
+    </div>
+    <div class="form-group">
+        <label>Unit price</label>
+        <input type="number" class="form-control" name="unitprice">
+    </div>
+    <div class="form-group">
+        <label>Production Cost</label>
+        <input type="number" class="form-control"  name="production_cost">
+    </div>
+    <div class="form-group">
+        <label>VAT</label>
+        <input type="number" class="form-control" name="vat">
+    </div>
+    <button type="submit" class="btn btn-success">Add</button>
+</form>

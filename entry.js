@@ -48,6 +48,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var settings = require('./routes/settings');
 var sales = require('./routes/sales');
+var products = require('./routes/products');
 
 var app = express();
 
@@ -105,6 +106,7 @@ app.use('/', routes);
 app.use('/settings', settings);
 app.use('/users', users);
 app.use('/sales', sales);
+app.use('/products', products);
 
 app.set('port', (process.env.PORT || 3000));
 

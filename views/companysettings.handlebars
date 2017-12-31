@@ -46,7 +46,14 @@
                     <div class="alert alert-success">{{success_msg}}</div>
                 {{/if}}
                 <h2 class="page-header">Give this ID to someone to join your company</h2>
-                <input type="text" class="form-control" value="{{{user.company}}}" readonly>
+                <div class="input-group">
+                    <input type="text" class="form-control" value="{{{user.company}}}" id="foo" readonly>
+                    <div class="input-group-btn">
+                        <button class="btn" data-clipboard-target="#foo">
+                            <i class="fa fa-files-o"></i>
+                        </button>
+                    </div>
+                </div>
                 <h2 class="page-header">Leave from your company</h2>
                 <button class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete">Leave</button>
 
@@ -54,6 +61,9 @@
                 <h2 class="page-header">Join to a company with ID</h2>
                 {{#if success_msg}}
                     <div class="alert alert-success">{{success_msg}}</div>
+                {{/if}}
+                {{#if error_msg}}
+                    <div class="alert alert-danger">{{error_msg}}</div>
                 {{/if}}
                 <form method="post" action="/settings/company/join/{{{user.username}}}" role="form">
                 <div class="form-group">
@@ -106,3 +116,13 @@
         </div>
         </div>
     </div>
+
+    <script src="/js/clipboard.js"></script>
+    <script>
+        var clipboard = new Clipboard('.btn');
+
+clipboard.on('success', function(e) {
+    e.clearSelection();
+});
+
+    </script>
