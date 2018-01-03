@@ -67,9 +67,29 @@ router.get('/users', (req, res, next)=>{
     });
 });
 
+
+
 router.get('/company', ensureAuthenticated, function(req, res) {
     res.render('companysettings');
 });
+
+
+
+router.get('/company/:companyid', ensureAuthenticated, function(req, res) {
+    var company_id = req.params.companyid;
+
+    function getCompanyInformation(callback) { 
+        entry.connection.query("SELECT * FROM companies WHERE company_id='" + company_id + "'",
+            function (err, rows) {
+                callback(err, rows); 
+            }
+        );
+    }
+
+    getCompanyInformation(function (err, companyResult){      
+        res.render('companysettings', {'result': companyResult});
+     });
+})
 
 router.post('/company/create/:username', ensureAuthenticated, function(req,res) {
     var company_name = req.body.companyname;
@@ -116,7 +136,7 @@ router.post('/company/create/:username', ensureAuthenticated, function(req,res) 
                     if (err) throw err;
                 });     
                 req.flash('success_msg', 'Your company was made');
-                res.redirect('/settings/company'); 
+                res.redirect('/settings/company/' + companyId); 
             }
         });
     } 
@@ -169,7 +189,7 @@ router.post('/company/join/:username', ensureAuthenticated, function(req,res) {
             }
             else{
                 req.flash('success_msg', 'You joined a company');
-                res.redirect('/settings/company');
+                res.redirect('/settings/company/' + companyid);
             }
         });
     }

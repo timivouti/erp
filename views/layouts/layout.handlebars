@@ -51,9 +51,15 @@
 					<li><a class="" href="/settings/user">
 						<span class="fa fa-arrow-right">&nbsp;</span> User Settings
 					</a></li>
+					{{#if companyActive}}
 					<li><a class="" href="/settings/company">
 						<span class="fa fa-arrow-right">&nbsp;</span> Company Settings
 					</a></li>
+					{{else}}
+					<li><a class="" href="/settings/company/{{{user.company}}}">
+						<span class="fa fa-arrow-right">&nbsp;</span> Company Settings
+					</a></li>
+					{{/if}}
 				</ul>
 			</li>
 			<li><a href="/users/logout"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>

@@ -45,6 +45,38 @@
                 {{#if success_msg}}
                     <div class="alert alert-success">{{success_msg}}</div>
                 {{/if}}
+                <h2 class="page-header">Company information</h2>
+                {{#each result}}
+                <div class="form-group">
+                    <label>Company name</label>
+                    <input type="text" class="form-control" value="{{company_name}}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Company address</label>
+                    <input type="text" class="form-control" value="{{company_address}}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Company postcode</label>
+                    <input type="text" class="form-control" value="{{company_postcode}}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Company city</label>
+                    <input type="text" class="form-control" value="{{company_city}}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Company phonenumber</label>
+                    <input type="text" class="form-control" value="{{company_phonenumber}}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Company email</label>
+                    <input type="text" class="form-control" value="{{company_email}}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Company country</label>
+                    <input type="text" class="form-control" value="{{company_country}}" readonly>
+                </div>
+                {{/each}}
+
                 <h2 class="page-header">Give this ID to someone to join your company</h2>
                 <div class="input-group">
                     <input type="text" class="form-control" value="{{{user.company}}}" id="foo" readonly>
