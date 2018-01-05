@@ -6,7 +6,6 @@ const mysql = require('mysql2');
 
 router.get('/', ensureAuthenticated, function(req, res, next) {
     getSales(function (err, salesResult){ 
-        //you might want to do something is err is not null...      
         res.render('sales', {'result': salesResult});
      });
 });
@@ -21,9 +20,6 @@ function ensureAuthenticated(req, res, next) {
     }
 }
 
-
-
-
 function getSales(callback) { 
     entry.connection.query("SELECT * FROM sales",
         function (err, rows) {
@@ -32,12 +28,9 @@ function getSales(callback) {
     );
 }
   
-
-
 router.get('/add', ensureAuthenticated, function(req, res, next) {
     res.render('addsales');
 });
-
 
 router.post('/add/new', ensureAuthenticated, function(req,res) {
     var order_date = req.body.order_date;
@@ -96,7 +89,7 @@ router.post('/add/new', ensureAuthenticated, function(req,res) {
                 }
             );    
         }
-        getSalesEdit(function (err, salesResult, orderNumber){      
+        getSalesEdit(function (err, salesResult){      
             res.render('editsales', {'result': salesResult});
          });
     });

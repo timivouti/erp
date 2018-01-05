@@ -64,7 +64,7 @@
                 <th>{{unitprice}}</th>
                 <th>{{production_cost}}</th>
                 <th>{{vat}}</th>
-				<th><a href="/products/edit/{{product_number}}"><button type="button" class="btn btn-primary">Edit</button></a></th>
+				<th><a href="/products/edit/{{product_number}}/{{company_id}}"><button type="button" class="btn btn-primary">Edit</button></a></th>
 				<th><a data-href="/products/remove/{{product_number}}/{{company_id}}" data-toggle="modal" data-target="#confirm-delete"><button type="button" class="btn btn-danger">Delete</button></a></th>
 			</tr>
 			{{/each}}

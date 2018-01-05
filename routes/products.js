@@ -23,8 +23,7 @@ router.get('/:company_id', ensureAuthenticated, function(req, res) {
             }
         );
     }
-    getProducts(function (err, productsResult){ 
-        //you might want to do something is err is not null...      
+    getProducts(function (err, productsResult){       
         res.render('products', {'result': productsResult});
      });
 });
@@ -58,7 +57,6 @@ router.post('/add/:company_id', ensureAuthenticated, function(req, res) {
 
         entry.connection.query(sql, function (err, result) {
             if (err) throw err;
-            console.log(result[0].max);
             var product_number = (result[0].max + 1);
             addNewProduct(product_number);
         });
@@ -66,7 +64,6 @@ router.post('/add/:company_id', ensureAuthenticated, function(req, res) {
         function addNewProduct(product_number) {
         var values = product_number + ", '" + product_name + "', " + unitprice + ", " + production_cost + ", " + vat + ", '" + company_id + "'";
         var sql = "INSERT INTO products (product_number, product_name, unitprice, production_cost, vat, company_id) VALUES (" + values + ")";
-        console.log(sql);
         entry.connection.query(sql, function (err, result) {
             if (err) throw err;
         });     
@@ -89,5 +86,64 @@ router.get('/remove/:product_number/:company_id', ensureAuthenticated, function(
         res.redirect('/products/' + company_id);
  
 });
+
+router.get('/edit/:product_number/:company_id', ensureAuthenticated, function(req, res) {
+    var product_number = req.params.product_number;
+    var company_id = req.params.company_id;
+    
+
+    function getProductsEdit(callback) {
+        entry.connection.query("SELECT * FROM products WHERE product_number= " + product_number + " AND company_id='" + company_id + "'",
+            function (err, rows) {
+                callback(err, rows); 
+            }
+        );    
+    }
+    getProductsEdit(function (err, productsResult){      
+        res.render('editproducts', {'result': productsResult});
+     });
+});
+
+router.post('/edit/:product_number/:company_id', ensureAuthenticated, function(req, res) {
+    var product_name = req.body.product_name;
+    var unitprice = req.body.unitprice;
+    var production_cost = req.body.production_cost;
+    var vat = req.body.vat;
+    var company_id = req.params.company_id;
+    var product_number = req.params.product_number;
+
+    req.checkBody('product_name', 'Product name is required').notEmpty();
+    req.checkBody('unitprice', 'Unit price is required').notEmpty();
+    req.checkBody('production_cost', 'Production cost is required').notEmpty();
+    req.checkBody('vat', 'VAT is required').notEmpty();
+
+    var errors = req.validationErrors();
+
+    function getProductsEdit(callback) {
+        entry.connection.query("SELECT * FROM products WHERE product_number=" + product_number + " AND company_id='" + company_id + "'",
+            function (err, rows) {
+                callback(err, rows); 
+            }
+        );    
+    }
+
+    if(errors) {
+        getProductsEdit(function (err, productsResult){     
+            res.render('editproducts', {'result': productsResult, errors:errors});
+         });
+    return;
+    }
+
+    var SET = "SET product_name='" + product_name + "', unitprice=" + unitprice + ", production_cost=" + production_cost + ", vat=" + vat; 
+
+        entry.connection.query("UPDATE products " + SET + " WHERE product_number=" + product_number + " AND company_id='" + company_id + "'");
+
+        req.flash('success_msg', 'You have edited the product');
+
+        getProductsEdit(function (err, productsResult){     
+            res.render('editproducts', {'result': productsResult, success_msg:req.flash('success_msg')});
+         });
+    });
+
 
 module.exports = router;
