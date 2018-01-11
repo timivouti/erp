@@ -1,0 +1,52 @@
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="/customers/add/new">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Customers</li>
+			</ol>
+		</div><!--/.row-->
+
+				<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Customers</h1>
+			</div>
+		</div><!--/.row-->
+
+<div class="panel panel-container">
+	<div class="panel-body table-responsive">	
+    <a href="/customers/{{{user.company}}}"><button type="button" class="btn btn-primary page-header" style="float:right">Back To Products</button></a>
+    <h2 class="page-header">New Product</h2>
+        {{#if errors}}
+            {{#each errors}}
+                <div class="alert alert-danger">{{msg}}</div>
+            {{/each}}
+        {{/if}}
+    <form method="post" action="/customers/add/new/{{{user.company}}}">
+    <div class="form-group">
+        <label>Customer Name</label>
+        <input type="text" class="form-control" placeholder="Customer Name" name="customer_name">
+    </div>
+    <div class="form-group">
+        <label>Customer Address</label>
+        <input type="text" class="form-control" placeholder="Customer Address" name="customer_address">
+    </div>
+    <div class="form-group">
+        <label>Customer Postcode</label>
+        <input type="text" class="form-control" placeholder="Customer Postcode"  name="customer_postcode">
+    </div>
+    <div class="form-group">
+        <label>Customer City</label>
+        <input type="text" class="form-control" placeholder="Customer City" name="customer_city">
+    </div>
+    <div class="form-group">
+        <label>Customer Phonenumber</label>
+        <input type="text" class="form-control" placeholder="Customer Phonenumber" name="customer_phonenumber">
+    </div>
+    <div class="form-group">
+        <label>Customer Email</label>
+        <input type="email" class="form-control" placeholder="Customer Email" name="customer_email">
+    </div>
+    <button type="submit" class="btn btn-success">Add</button>
+</form>

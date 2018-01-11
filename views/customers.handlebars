@@ -1,0 +1,82 @@
+		    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Are you sure you want to remove this?</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete one sale, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+
+    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="/customers/{{{user.company}}}">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Customers</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Customers</h1>
+			</div>
+		</div><!--/.row-->
+
+        <div class="panel panel-container">
+		<div class="login-panel panel panel-default">
+            <div class="panel-body">
+            <a href="/customers/add/new"><button type="button" class="btn btn-success page-header" style="float:right">Add New</button></a>
+            <h2 class="page-header">Customers</h2>
+            {{#if success_msg}}
+                <div class="alert alert-success">{{success_msg}}</div>
+              {{/if}}
+            <div class="table-responsive">
+		<table class="table table-striped" style="overflow-x:auto">
+		<thead>
+  			<tr>
+     			<th>Customer Name</th>
+     			<th>Customer Address</th>
+				<th>Customer Postcode</th>
+				<th>Customer City</th>
+				<th>Customer Phonenumber</th>
+                <th>Customer Email</th>
+                <th>Edit</th>
+                <th>Delete</th>
+  			</tr>
+ 		</thead>
+		 <tbody>
+			{{#each result}}
+			<tr>
+				<th>{{customer_name}}</th>
+                <th>{{customer_address}}</th>
+                <th>{{customer_postcode}}</th>
+                <th>{{customer_city}}</th>
+                <th>{{customer_phonenumber}}</th>
+                <th>{{customer_email}}</th>
+				<th><a href="/customers/edit/{{customer_id}}/{{company_id}}"><button type="button" class="btn btn-primary">Edit</button></a></th>
+				<th><a data-href="/customers/remove/{{customer_id}}/{{company_id}}" data-toggle="modal" data-target="#confirm-delete"><button type="button" class="btn btn-danger">Delete</button></a></th>
+			</tr>
+			{{/each}}
+		 </tbody>
+		</table>
+		</div>
+
+            </div>
+        </div>
+        </div>
+    </div>
