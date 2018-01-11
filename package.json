@@ -29,6 +29,7 @@
     "express-session": "*",
     "express-validator": "*",
     "git": "^0.1.5",
+    "heroku": "^0.2.0",
     "method-override": "^2.3.10",
     "mongodb": "*",
     "mongoose": "^4.13.7",

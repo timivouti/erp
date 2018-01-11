@@ -36,7 +36,7 @@ router.post('/add/new/:company_id', ensureAuthenticated, function(req,res) {
     var customer_address = req.body.customer_address;
     var customer_postcode = req.body.customer_postcode;
     var customer_city = req.body.customer_city;
-    var customer_phonenumber = req.body.order_pricevat;
+    var customer_phonenumber = req.body.customer_phonenumber;
     var customer_email = req.body.customer_email;
     var company_id = req.params.company_id;
 
