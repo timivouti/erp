@@ -17,36 +17,41 @@
 <div class="panel panel-container">
 	<div class="panel-body table-responsive">	
     <a href="/customers/{{{user.company}}}"><button type="button" class="btn btn-primary page-header" style="float:right">Back To Customers</button></a>
-    <h2 class="page-header">New Customer</h2>
+    <h2 class="page-header">Edit Customer</h2>
         {{#if errors}}
-            {{#each errors}}
-                <div class="alert alert-danger">{{msg}}</div>
-            {{/each}}
-        {{/if}}
-    <form method="post" action="/customers/add/new/{{{user.company}}}">
+                {{#each errors}}
+                    <div class="alert alert-danger">{{msg}}</div>
+                {{/each}}
+            {{/if}}
+            {{#if success_msg}}
+                <div class="alert alert-success">{{success_msg}}</div>
+              {{/if}}
+    {{#each result}}
+    <form method="post" action="/customers/edit/{{customer_id}}/{{company_id}}">
     <div class="form-group">
         <label>Customer Name</label>
-        <input type="text" class="form-control" placeholder="Customer Name" name="customer_name">
+        <input type="text" class="form-control" value="{{customer_name}}" name="customer_name">
     </div>
     <div class="form-group">
         <label>Customer Address</label>
-        <input type="text" class="form-control" placeholder="Customer Address" name="customer_address">
+        <input type="text" class="form-control" value="{{customer_address}}" name="customer_address">
     </div>
     <div class="form-group">
         <label>Customer Postcode</label>
-        <input type="text" class="form-control" placeholder="Customer Postcode"  name="customer_postcode">
+        <input type="text" class="form-control" value="{{customer_postcode}}"  name="customer_postcode">
     </div>
     <div class="form-group">
         <label>Customer City</label>
-        <input type="text" class="form-control" placeholder="Customer City" name="customer_city">
+        <input type="text" class="form-control" value="{{customer_city}}" name="customer_city">
     </div>
     <div class="form-group">
         <label>Customer Phonenumber</label>
-        <input type="text" class="form-control" placeholder="Customer Phonenumber" name="customer_phonenumber">
+        <input type="text" class="form-control" value="{{customer_phonenumber}}" name="customer_phonenumber">
     </div>
     <div class="form-group">
         <label>Customer Email</label>
-        <input type="email" class="form-control" placeholder="Customer Email" name="customer_email">
+        <input type="email" class="form-control" value="{{customer_email}}" name="customer_email">
     </div>
-    <button type="submit" class="btn btn-success">Add</button>
+    <button type="submit" class="btn btn-success">Edit</button>
 </form>
+{{/each}}
